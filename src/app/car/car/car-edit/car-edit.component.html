@@ -1,0 +1,32 @@
+<ng-container *ngrxLet="cars$ | async as cars; let e = $error; let c = $complete; suspenseTpl: loading">
+  <div class="container">
+    <h2>Seleção feita com base no param ID presente na URL</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Ano</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr [formGroup]="form">
+        <td><input type="hidden">{{cars?.id}}</td>
+        <td><input formControlName="make" type="text"></td>
+        <td><input formControlName="model" type="text"></td>
+        <td><input formControlName="year" type="text"></td>
+      </tr>
+      </tbody>
+    </table>
+    <p *ngIf="e">Erro: {{ e }}</p>
+    <p *ngIf="c">O observable foi carregado</p>
+    <div class="add-button">
+      <button (click)="saveEditCar(cars?.id)">Salvar</button>
+      <button routerLink="/car">Voltar</button>&nbsp;
+    </div>
+  </div>
+</ng-container>
+<ng-template #loading>
+  <p>Carregando...</p>
+</ng-template>

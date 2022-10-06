@@ -1,0 +1,38 @@
+<ng-container *ngrxLet="cars$ | async as cars; let e = $error; let c = $complete; suspenseTpl: loading">
+  <div class="container">
+    <h2>Adição e remoção de dados usando Entity </h2>
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Ano</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let car of cars">
+        <td>{{car.id}}</td>
+        <td>{{car.make}}</td>
+        <td>{{car.model | uppercase}}</td>
+        <td>{{car.year}}</td>
+        <td>
+          <strong><a style="cursor: pointer" [routerLink]="['/car/view/' + car.id]">VISUALIZAR</a></strong>&nbsp;
+          <strong><a style="cursor: pointer" [routerLink]="['/car/edit/' + car.id]">EDITAR</a></strong>&nbsp;
+          <strong><a style="cursor: pointer" (click)="removeCar(+car.id)">REMOVER</a></strong>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <p *ngIf="e">Erro: {{ e }}</p>
+    <p *ngIf="c">O observable foi carregado</p>
+    <div class="add-button">
+      <button (click)="addModelCar()">Adicionar</button>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <p>Carregando...</p>
+</ng-template>

@@ -1,0 +1,27 @@
+<ng-container *ngrxLet="allComments$ | async as comments; let e = $error; let c = $complete; suspenseTpl: loading">
+  <div class="container">
+    <h2>NgRx data</h2> <button routerLink="/ngRxLet/add">Adicionar</button>
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>name</th>
+        <th>email</th>
+        <th>Descrição</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let comment of comments">
+        <td>{{comment.id}}</td>
+        <td>{{comment.name}}</td>
+        <td>{{comment.email}}</td>
+        <td>{{comment.body || 'Nenhuma descrição adicionada'}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-container>
+<ng-template #loading>
+  <p>Carregando...</p>
+</ng-template>
+
